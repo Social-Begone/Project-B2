@@ -6,60 +6,60 @@ using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour
 {
     public int MoveSpeed = 20;
-    public Vector3 target;
+    public Vector3 Target;
 
-    private string CurrentLocation = "Nowhere";
+    private string currentLocation = "Nowhere";
     private string targetLocation = "Nowhere";
     private bool ArriveOnce = true;
     private GameObject HubEvent;
 
-    private GameObject OverWorldMenu;
-    private GameObject LocationMenu;
+    private GameObject overWorldMenu;
+    private GameObject locationMenu;
 
     void Start()
     {
         gameObject.GetComponent<Player>().LoadME();
         gameObject.GetComponent<Player>().HealthHandler(0);
-        target.x = SaveSystem.LoadPlayer().position[0];
-        target.y = SaveSystem.LoadPlayer().position[1];
-        target.z = SaveSystem.LoadPlayer().position[2];
-        transform.position = target;
+        Target.x = SaveSystem.LoadPlayer().position[0];
+        Target.y = SaveSystem.LoadPlayer().position[1];
+        Target.z = SaveSystem.LoadPlayer().position[2];
+        transform.position = Target;
 
-        CurrentLocation = WhereAmI();
+        currentLocation = WhereAmI();
 
-        GameObject.FindGameObjectWithTag("PlayerPosText").GetComponent<Text>().text = CurrentLocation;
+        GameObject.FindGameObjectWithTag("PlayerPosText").GetComponent<Text>().text = currentLocation;
 
         HubEvent = GameObject.FindGameObjectWithTag("MapMarkerHandler");
 
-        OverWorldMenu = GameObject.FindGameObjectWithTag("CanvasOverWorld");
-        OverWorldMenu.GetComponent<CanvasGroup>().alpha = 1f;
-        OverWorldMenu.GetComponent<CanvasGroup>().blocksRaycasts = true;
+        overWorldMenu = GameObject.FindGameObjectWithTag("CanvasOverWorld");
+        overWorldMenu.GetComponent<CanvasGroup>().alpha = 1f;
+        overWorldMenu.GetComponent<CanvasGroup>().blocksRaycasts = true;
     }
 
     void Update()
     {
         float step = MoveSpeed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, target, step);
+        transform.position = Vector3.MoveTowards(transform.position, Target, step);
 
-        CurrentLocation = WhereAmI();
-        GameObject.FindGameObjectWithTag("PlayerPosText").GetComponent<Text>().text = CurrentLocation;
+        currentLocation = WhereAmI();
+        GameObject.FindGameObjectWithTag("PlayerPosText").GetComponent<Text>().text = currentLocation;
 
-        if (CurrentLocation == targetLocation && ArriveOnce)
+        if (currentLocation == targetLocation && ArriveOnce)
         {
             ArriveOnce = false;
 
-            GameObject[] places = GameObject.FindGameObjectsWithTag(CurrentLocation);
+            GameObject[] places = GameObject.FindGameObjectsWithTag(currentLocation);
             foreach (GameObject _places in places)
             {
                 if (_places.GetComponent<Canvas>() != null)
                 {
-                    OverWorldMenu = GameObject.FindGameObjectWithTag("CanvasOverWorld");
-                    OverWorldMenu.GetComponent<CanvasGroup>().alpha = 0f;
-                    OverWorldMenu.GetComponent<CanvasGroup>().blocksRaycasts = false;
+                    overWorldMenu = GameObject.FindGameObjectWithTag("CanvasOverWorld");
+                    overWorldMenu.GetComponent<CanvasGroup>().alpha = 0f;
+                    overWorldMenu.GetComponent<CanvasGroup>().blocksRaycasts = false;
 
-                    LocationMenu = _places;
-                    LocationMenu.GetComponent<CanvasGroup>().alpha = 1f;
-                    LocationMenu.GetComponent<CanvasGroup>().blocksRaycasts = true;
+                    locationMenu = _places;
+                    locationMenu.GetComponent<CanvasGroup>().alpha = 1f;
+                    locationMenu.GetComponent<CanvasGroup>().blocksRaycasts = true;
                 }
             }
         }
@@ -76,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (aPlace.tag == Tag)
             {
-                target = aPlace.GetComponent<RectTransform>().position;
+                Target = aPlace.GetComponent<RectTransform>().position;
             }
         }
     }
