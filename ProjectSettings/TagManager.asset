@@ -30,9 +30,11 @@ TagManager:
   - EnemyHealthStat
   - EnemyWeaponStat
   - EnemyArmourStat
-  - PlayerHealthStat
   - PlayerWeaponStat
   - PlayerArmourStat
+  - PlayerHunger
+  - PlayerStamina
+  - FishCounter
   layers:
   - Default
   - TransparentFX

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHandler : MonoBehaviour
 {
@@ -11,10 +12,20 @@ public class PlayerHandler : MonoBehaviour
     public int HealthRegen = 10;
     public float Timer = 20;
     private float _Timer;
+
+    private Text FishText;
+    private Text HealthText;
+    private Text StaminaText;
+    private Text HungerText;
     void Start()
     {
         _Timer = Timer;
         player = GameObject.FindGameObjectWithTag("Player");
+
+        FishText = GameObject.FindGameObjectWithTag("FishCounter").GetComponent<Text>();
+        HealthText = GameObject.FindGameObjectWithTag("PlayerHealth").GetComponent<Text>();
+        StaminaText = GameObject.FindGameObjectWithTag("PlayerStamina").GetComponent<Text>();
+        HungerText = GameObject.FindGameObjectWithTag("PlayerHunger").GetComponent<Text>();
     }
 
     void Update()
@@ -35,5 +46,11 @@ public class PlayerHandler : MonoBehaviour
                 player.GetComponent<Player>().HealthHandler(HealthRegen);
 
         }
+
+        FishText.text = "Fish: " + player.GetComponent<Player>().Fish.ToString();
+        HealthText.text = player.GetComponent<Player>().Health.ToString() + " HP";
+        StaminaText.text = "ST: " + player.GetComponent<Player>().Stamina.ToString();
+        HungerText.text = "HU: " + player.GetComponent<Player>().Hunger.ToString();
+
     }
 }
