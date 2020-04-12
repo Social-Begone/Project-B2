@@ -7,6 +7,7 @@ public class PlayerHandler : MonoBehaviour
 {
     private GameObject player;
     public int HungerPerTimer = 1;
+    public int StaminaPerTimer = 1;
     public int HungerDamagePerTimer = 10;
     public int StaminaDamagePerTimer = 5;
     public int HealthRegen = 10;
@@ -41,6 +42,10 @@ public class PlayerHandler : MonoBehaviour
 
             if (player.GetComponent<Player>().Stamina < 0)
                 player.GetComponent<Player>().HealthHandler(-StaminaDamagePerTimer);
+            else
+                player.GetComponent<Player>().StaminaHandler(-StaminaPerTimer);
+
+
 
             if (player.GetComponent<Player>().Stamina > 0 && player.GetComponent<Player>().Hunger > 0)
                 player.GetComponent<Player>().HealthHandler(HealthRegen);
