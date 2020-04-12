@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class EnemyHandler : MonoBehaviour
 {
@@ -23,7 +24,8 @@ public class EnemyHandler : MonoBehaviour
             Timer -= Time.deltaTime;
         if(Timer <= 0)
         {
-            Debug.Log("ENEMY!");
+            GameObject.FindObjectOfType<Player>().SaveME();
+            SceneManager.LoadScene("EnemyEncounter");
             Timer = Random.Range(EncounterMin, EncounterMax);
         }
     }

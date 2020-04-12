@@ -23,6 +23,16 @@ TagManager:
   - PlayerWeapon
   - PlayerHealth
   - PlayerArmour
+  - EnemyHealth
+  - EnemyWeapon
+  - EnemyArmour
+  - EnemyName
+  - EnemyHealthStat
+  - EnemyWeaponStat
+  - EnemyArmourStat
+  - PlayerHealthStat
+  - PlayerWeaponStat
+  - PlayerArmourStat
   layers:
   - Default
   - TransparentFX
