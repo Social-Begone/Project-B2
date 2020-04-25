@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class EnemyHandler : MonoBehaviour
 {
     private Text PlayerCurrentPos;
+    private Player player;
 
     public int EncounterMax;
     public int EncounterMin;
@@ -16,12 +17,16 @@ public class EnemyHandler : MonoBehaviour
     {
         Timer = Random.Range(EncounterMin, EncounterMax);
         PlayerCurrentPos = GameObject.FindGameObjectWithTag("PlayerPosText").GetComponent<Text>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     void Update()
     {
         if (PlayerCurrentPos.text == "Nowhere")
-            Timer -= Time.deltaTime;
+            if (player.isDay)
+                Timer -= Time.deltaTime;
+            else
+                Timer -= Time.deltaTime * 3;
         if(Timer <= 0)
         {
             GameObject.FindObjectOfType<Player>().SaveME();

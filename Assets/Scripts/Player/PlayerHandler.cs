@@ -15,18 +15,18 @@ public class PlayerHandler : MonoBehaviour
     private float _Timer;
 
     private Text FishText;
-    private Text HealthText;
-    private Text StaminaText;
-    private Text HungerText;
+    private Slider HealthSlider;
+    private Slider StaminaSlider;
+    private Slider HungerSlider;
     void Start()
     {
         _Timer = Timer;
         player = GameObject.FindGameObjectWithTag("Player");
 
         FishText = GameObject.FindGameObjectWithTag("FishCounter").GetComponent<Text>();
-        HealthText = GameObject.FindGameObjectWithTag("PlayerHealth").GetComponent<Text>();
-        StaminaText = GameObject.FindGameObjectWithTag("PlayerStamina").GetComponent<Text>();
-        HungerText = GameObject.FindGameObjectWithTag("PlayerHunger").GetComponent<Text>();
+        HealthSlider = GameObject.FindGameObjectWithTag("PlayerHealth").GetComponent<Slider>();
+        StaminaSlider = GameObject.FindGameObjectWithTag("PlayerStamina").GetComponent<Slider>();
+        HungerSlider = GameObject.FindGameObjectWithTag("PlayerHunger").GetComponent<Slider>();
     }
 
     void Update()
@@ -54,9 +54,8 @@ public class PlayerHandler : MonoBehaviour
         }
 
         FishText.text = "Fish: " + player.GetComponent<Player>().Fish.ToString();
-        HealthText.text = player.GetComponent<Player>().Health.ToString() + " HP";
-        StaminaText.text = "ST: " + player.GetComponent<Player>().Stamina.ToString();
-        HungerText.text = "HU: " + player.GetComponent<Player>().Hunger.ToString();
-
+        StaminaSlider.value = ((float)player.GetComponent<Player>().Stamina / (float)player.GetComponent<Player>().StaminaMAX);
+        HungerSlider.value = ((float)player.GetComponent<Player>().Hunger / (float)player.GetComponent<Player>().HungerMAX);
+        HealthSlider.value = ((float)player.GetComponent<Player>().Health / (float)player.GetComponent<Player>().HealthMAX);
     }
 }

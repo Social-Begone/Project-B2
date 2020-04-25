@@ -35,6 +35,11 @@ TagManager:
   - PlayerHunger
   - PlayerStamina
   - FishCounter
+  - ItemTile
+  - Rarity
+  - ItemObject
+  - UI
+  - PlayerBoots
   layers:
   - Default
   - TransparentFX

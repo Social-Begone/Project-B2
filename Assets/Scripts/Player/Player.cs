@@ -120,6 +120,24 @@ public class Player : MonoBehaviour
     {
         BoatExists = boatExists;
     }
+    public void BootHandler(string bootName, int level)
+    {
+        BootName = bootName;
+        BootLevel = level;
+        SaveME();
+    }
+    public void WeaponHandler(string weaponName, int level)
+    {
+        WeaponName = weaponName;
+        WeaponLevel = level;
+        SaveME();
+    }
+    public void ArmourHandler(string armourName, int level)
+    {
+        ArmourName = armourName;
+        ArmourLevel = level;
+        SaveME();
+    }
 
     public void DayCounterHandler(int dayCounter)
     {

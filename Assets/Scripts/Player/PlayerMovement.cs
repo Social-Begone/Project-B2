@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         gameObject.GetComponent<Player>().LoadME();
+        MoveSpeed = 20 + 2 * gameObject.GetComponent<Player>().BootLevel;
         gameObject.GetComponent<Player>().HealthHandler(0);
         target.x = SaveSystem.LoadPlayer().position[0];
         target.y = SaveSystem.LoadPlayer().position[1];
@@ -51,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
             GameObject[] places = GameObject.FindGameObjectsWithTag(CurrentLocation);
             foreach (GameObject _places in places)
             {
-                if (_places.GetComponent<Canvas>() != null)
+                if (_places.GetComponent<Canvas>() != null && _places.tag != "UI")
                 {
                     OverWorldMenu = GameObject.FindGameObjectWithTag("CanvasOverWorld");
                     OverWorldMenu.GetComponent<CanvasGroup>().alpha = 0f;

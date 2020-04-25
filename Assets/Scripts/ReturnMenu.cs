@@ -11,10 +11,13 @@ public class ReturnMenu : MonoBehaviour
         
         foreach (Component component in LocationMenu)
         {
-            component.GetComponent<CanvasGroup>().alpha = 0f;
-            component.GetComponent<CanvasGroup>().blocksRaycasts = false;
-        }
+            if(component.tag != "UI")
+            {
+                component.GetComponent<CanvasGroup>().alpha = 0f;
+                component.GetComponent<CanvasGroup>().blocksRaycasts = false;
 
+            }
+        }
         gameObject.GetComponent<CanvasGroup>().alpha = 1f;
         gameObject.GetComponent<CanvasGroup>().blocksRaycasts = true;
     }

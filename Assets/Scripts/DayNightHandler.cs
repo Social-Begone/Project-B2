@@ -13,6 +13,11 @@ public class DayNightHandler : MonoBehaviour
     {
         Timer = GameObject.FindGameObjectWithTag("Player");
         GameObject.FindGameObjectWithTag("DayCounterText").GetComponent<Text>().text = ("DAY " + Timer.GetComponent<Player>().DayCounter);
+
+        if (!Timer.GetComponent<Player>().isDay)
+        {
+            gameObject.GetComponentInParent<CanvasGroup>().alpha = 1f;
+        }    
     }
 
     void Update()

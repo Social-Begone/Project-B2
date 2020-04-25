@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HubEvent : MonoBehaviour
 {
@@ -37,7 +38,7 @@ public class HubEvent : MonoBehaviour
         {
             if (_Player.Stamina > 0)
             {
-                _Player.WoodHandler(25);
+                _Player.WoodHandler(5);
                 DidAction = -20;
             }
         }
@@ -65,20 +66,14 @@ public class HubEvent : MonoBehaviour
         }
         if (marker == "Bunker")
         {
-            if (_Player.Stamina > 0)
-            {
-                Debug.Log("Looting...");
-                DidAction = -20;
-            }
+            _Player.SaveME();
+            SceneManager.LoadScene("Bunker");
         }
         if (DidAction != 0)
         {
             _Player.StaminaHandler(DidAction);
             DidAction = 0;
         }
-
-
-
         if (marker == "Nowhere")
         {
             GameObject.FindGameObjectWithTag("CanvasOverWorld").GetComponent<ReturnMenu>().OverWorldCanvasReturner();
