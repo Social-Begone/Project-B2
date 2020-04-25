@@ -35,16 +35,17 @@ public class PlayerHandler : MonoBehaviour
         if(_Timer <= 0)
         {
             _Timer = Timer;
+
             if (player.GetComponent<Player>().Hunger > 0)
                 player.GetComponent<Player>().HungerHandler(-HungerPerTimer);
             else
                 player.GetComponent<Player>().HealthHandler(-HungerDamagePerTimer);
 
+
             if (player.GetComponent<Player>().Stamina < 0)
                 player.GetComponent<Player>().HealthHandler(-StaminaDamagePerTimer);
             else
                 player.GetComponent<Player>().StaminaHandler(-StaminaPerTimer);
-
 
 
             if (player.GetComponent<Player>().Stamina > 0 && player.GetComponent<Player>().Hunger > 0)
