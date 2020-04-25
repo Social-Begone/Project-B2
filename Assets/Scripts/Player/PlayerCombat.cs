@@ -20,9 +20,9 @@ public class PlayerCombat : MonoBehaviour
         _Timer = Timer;
         gameObject.GetComponent<Player>().LoadME();
         Vector3 keepPos = new Vector3(0f,0f,0f);
-        keepPos.x = SaveSystem.LoadPlayer().position[0];
-        keepPos.y = SaveSystem.LoadPlayer().position[1];
-        keepPos.z = SaveSystem.LoadPlayer().position[2];
+        keepPos.x = SaveSystem.LoadPlayer().Position[0];
+        keepPos.y = SaveSystem.LoadPlayer().Position[1];
+        keepPos.z = SaveSystem.LoadPlayer().Position[2];
 
         transform.position = keepPos;
 

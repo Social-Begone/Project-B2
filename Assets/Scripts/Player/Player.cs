@@ -58,9 +58,9 @@ public class Player : MonoBehaviour
         Fish = data.Fish;
         Wood = data.Wood;
 
-        TimeOfNightorDay = data.TimeOfNightorDay;
-        DayCounter = data.DayCounter;
-        isDay = data.isDay;
+        TimeOfNightorDay = data.InGameTime;
+        DayCounter = data.DayCount;
+        isDay = data.IsDay;
 
         BoatExists = data.BoatExists;
 }

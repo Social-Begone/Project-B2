@@ -11,48 +11,43 @@ public class PlayerMovement : MonoBehaviour
     private string currentLocation = "Nowhere";
     private string targetLocation = "Nowhere";
     private bool ArriveOnce = true;
-    private GameObject HubEvent;
+    private GameObject hubEvent;
 
     private GameObject overWorldMenu;
     private GameObject locationMenu;
 
-    void Start()
-    {
+    void Start() {
         gameObject.GetComponent<Player>().LoadME();
         gameObject.GetComponent<Player>().HealthHandler(0);
-        Target.x = SaveSystem.LoadPlayer().position[0];
-        Target.y = SaveSystem.LoadPlayer().position[1];
-        Target.z = SaveSystem.LoadPlayer().position[2];
+        Target.x = SaveSystem.LoadPlayer().Position[0];
+        Target.y = SaveSystem.LoadPlayer().Position[1];
+        Target.z = SaveSystem.LoadPlayer().Position[2];
         transform.position = Target;
 
         currentLocation = WhereAmI();
 
         GameObject.FindGameObjectWithTag("PlayerPosText").GetComponent<Text>().text = currentLocation;
 
-        HubEvent = GameObject.FindGameObjectWithTag("MapMarkerHandler");
+        hubEvent = GameObject.FindGameObjectWithTag("MapMarkerHandler");
 
         overWorldMenu = GameObject.FindGameObjectWithTag("CanvasOverWorld");
         overWorldMenu.GetComponent<CanvasGroup>().alpha = 1f;
         overWorldMenu.GetComponent<CanvasGroup>().blocksRaycasts = true;
     }
 
-    void Update()
-    {
+    void Update() {
         float step = MoveSpeed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, Target, step);
 
         currentLocation = WhereAmI();
         GameObject.FindGameObjectWithTag("PlayerPosText").GetComponent<Text>().text = currentLocation;
 
-        if (currentLocation == targetLocation && ArriveOnce)
-        {
+        if (currentLocation == targetLocation && ArriveOnce) {
             ArriveOnce = false;
 
             GameObject[] places = GameObject.FindGameObjectsWithTag(currentLocation);
-            foreach (GameObject _places in places)
-            {
-                if (_places.GetComponent<Canvas>() != null)
-                {
+            foreach (GameObject _places in places) {
+                if (_places.GetComponent<Canvas>() != null) {
                     overWorldMenu = GameObject.FindGameObjectWithTag("CanvasOverWorld");
                     overWorldMenu.GetComponent<CanvasGroup>().alpha = 0f;
                     overWorldMenu.GetComponent<CanvasGroup>().blocksRaycasts = false;
@@ -65,37 +60,33 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void WalkHere(string Tag)
-    {
-        targetLocation = Tag;
+    public void WalkHere(string locationTag) {
+        targetLocation = locationTag;
         ArriveOnce = true;
 
-        ThisIsAPlace[] finder = FindObjectsOfType<ThisIsAPlace>();
-        
-        foreach (ThisIsAPlace aPlace in finder)
-        {
-            if (aPlace.tag == Tag)
-            {
-                Target = aPlace.GetComponent<RectTransform>().position;
+        LocationTag[] locations = FindObjectsOfType<LocationTag>();
+
+        foreach (LocationTag location in locations) {
+            if (location.CompareTag(locationTag)) {
+                Target = location.GetComponent<RectTransform>().position;
             }
         }
     }
 
-    public string WhereAmI()
-    {
-        string HereIAm = "Nowhere";
-        ThisIsAPlace[] finder = FindObjectsOfType<ThisIsAPlace>();
+    public string WhereAmI() {
+        string locationName = "Nowhere";
+        LocationTag[] locations = FindObjectsOfType<LocationTag>();
 
-        foreach (ThisIsAPlace _finder in finder)
-        {
-            var finder2 = _finder.GetComponent<RectTransform>();
-            if (finder2.position.y > transform.position.y - 1)
-                if (finder2.position.y < transform.position.y + 1)
-                    if (finder2.position.x > transform.position.x - 1)
-                        if (finder2.position.x < transform.position.x + 1)
-                            if (finder2.position == transform.position)
-                                    HereIAm = _finder.tag;
+        foreach (LocationTag location in locations) {
+            var locationTransform = location.GetComponent<RectTransform>();
+
+            if (locationTransform.position.y > transform.position.y - 1
+             && locationTransform.position.y < transform.position.y + 1
+             && locationTransform.position.x > transform.position.x - 1
+             && locationTransform.position.x < transform.position.x + 1
+             && locationTransform.position == transform.position)
+                locationName = location.tag;
         }
-        return HereIAm;
+        return locationName;
     }
 }
